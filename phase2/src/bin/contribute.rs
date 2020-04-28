@@ -24,8 +24,6 @@ fn main() {
     let out_params_filename = &args[2];
     let entropy = &args[3];
 
-    let disallow_points_at_infinity = false;
-
     // Create an RNG based on a mixture of system randomness and user provided randomness
     let mut rng = {
         use byteorder::{ReadBytesExt, BigEndian};
@@ -63,7 +61,7 @@ fn main() {
                             .read(true)
                             .open(in_params_filename)
                             .expect("unable to open.");
-    let mut params = MPCParameters::read(reader, disallow_points_at_infinity, true).expect("unable to read params");
+    let mut params = MPCParameters::read(reader, true).expect("unable to read params");
 
     println!("Contributing to {}...", in_params_filename);
     let hash = params.contribute(&mut rng);

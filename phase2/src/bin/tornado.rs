@@ -70,8 +70,7 @@ fn main() {
 
         ChaChaRng::from_seed(&seed)
     };
-    let disallow_points_at_infinity = false;
-    let mut params = MPCParameters::read(&*challenge, disallow_points_at_infinity, true).expect("unable to read params");
+    let mut params = MPCParameters::read(&*challenge, true).expect("unable to read params");
 
     println!("Generating contribution...");
     let hash = params.contribute(&mut rng);
