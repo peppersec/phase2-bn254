@@ -6,7 +6,7 @@ extern crate blake2;
 extern crate byteorder;
 extern crate exitcode;
 extern crate itertools;
-extern crate crypto;
+extern crate sha2;
 extern crate hex;
 
 use itertools::Itertools;
@@ -39,8 +39,7 @@ fn main() {
         use byteorder::{ReadBytesExt, BigEndian};
         use rand::{SeedableRng};
         use rand::chacha::ChaChaRng;
-        use crypto::sha2::Sha256;
-        use crypto::digest::Digest;
+        use sha2::{ Sha256, Digest };
 
         // The hash used for the beacon
         let hash_result = hex::decode(beacon_hash);
@@ -71,7 +70,7 @@ fn main() {
 
             let mut h = Sha256::new();
             h.input(&cur_hash);
-            h.result(&mut cur_hash);
+            cur_hash = h.result().to_vec();
         }
 
         print!("Final result of beacon: ");
