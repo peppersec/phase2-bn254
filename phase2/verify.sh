@@ -1,6 +1,10 @@
 #!/bin/bash -x
 
-END=$(($1-1))
-for i in $(seq 0 $END); do
-    cargo run --release --bin verify_contribution circuit.json response_$i response_$((i+1))
+while true; do
+	CURRENT=`cat current`
+	echo $((CURRENT+1)) > current
+	if [ $CURRENT -ge $1 ]; then
+		exit 0
+	fi
+	./target/release/verify_contribution circuit.json response_$CURRENT response_$((CURRENT+1)) >> verify.log 2>&1
 done
