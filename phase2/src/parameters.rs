@@ -79,9 +79,9 @@ use super::utils::*;
 /// they contain a transcript of contributions at the end, which can be verified.
 #[derive(Clone)]
 pub struct MPCParameters {
-    params: Parameters<Bn256>,
-    cs_hash: [u8; 64],
-    contributions: Vec<PublicKey>
+    pub params: Parameters<Bn256>,
+    pub cs_hash: [u8; 64],
+    pub contributions: Vec<PublicKey>
 }
 
 impl PartialEq for MPCParameters {
